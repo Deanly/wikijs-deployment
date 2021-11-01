@@ -24,3 +24,9 @@ $ docker-compose logs -f
 $ openssl rand -base64 32 > ${file.db.secret}
 $ docker-compose up -d
 ```
+
+### wiki setting
+1. Stroage(보관소) > Local File System
+    * path: `/etc/wiki/backup`
+2. Storage(보관소) > Git
+    * SSH Private Key Path : `/etc/wiki/github.pem`
