@@ -1,0 +1,3 @@
+local-test/backup/*
+local-test/logs/*
+local-test/pgdata/*
