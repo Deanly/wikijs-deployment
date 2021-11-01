@@ -29,4 +29,6 @@ $ docker-compose up -d
 1. Stroage(보관소) > Local File System
     * path: `/etc/wiki/backup`
 2. Storage(보관소) > Git
-    * SSH Private Key Path : `/etc/wiki/github.pem`
+    * SSH Private Key Path: `/etc/wiki/github.pem`
+3. Parser(파서) > Kroki
+    * Kroki Server: https://${your.domain.com}/kroki
