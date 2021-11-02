@@ -5,11 +5,16 @@ services:
     image: nginx:latest
     restart: always
     volumes:
-      - ./logs:/usr/local/nginx/log
+      - ./logs:/var/log/nginx
+      - ./logrotate-nginx.conf:/etc/logrotate.d/nginx:ro
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 80:80
       - 443:443
+    command: >
+      bash -c "apt-get update && 
+               apt-get install -y logrotate &&
+               nginx -g 'daemon off;'"
     networks:
       - wikinet
 

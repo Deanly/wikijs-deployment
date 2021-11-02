@@ -8,13 +8,18 @@ services:
       TZ: "Asia/Seoul"
     restart: always
     volumes:
-      - ${dir.nginx.log}:/usr/local/nginx/log
+      - ${dir.nginx.log}:/var/log/nginx
+      - ${file.logrotate.nginx}:/etc/logrotate.d/nginx:ro
       - ${file.nginx.conf}:/etc/nginx/nginx.conf:ro
       - ${dir.certbot.main}:/etc/nginx/ssl
       - ${dir.certbot.public}:/var/www/certbot
     ports:
       - 80:80
       - 443:443
+    command: >
+      bash -c "apt-get update && 
+               apt-get install -y logrotate &&
+               nginx -g 'daemon off;'"
     networks:
       - wikinet
 
