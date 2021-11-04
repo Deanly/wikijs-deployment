@@ -13,7 +13,7 @@ services:
       - ${file.nginx.conf}:/etc/nginx/nginx.conf:ro
       - ${dir.certbot.main}:/etc/nginx/ssl
       - ${dir.certbot.public}:/var/www/certbot
-      - ./crontab.list:/etc/cron.d/root:ro
+      - ${file.crontab.list}:/etc/cron.d/root:ro
     ports:
       - 80:80
       - 443:443
