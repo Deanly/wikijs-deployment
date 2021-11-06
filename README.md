@@ -38,7 +38,7 @@ $ docker-compose up -d
 
 ### volumes
 | 용도 | Volume | hostname | 타입 | 바인딩 |
-|:-:|:-:|:-:|:-:|:-:|:-:|
+|:---:|:---:|:---:|:---:|:---:|
 | nginx public | ${dir.nginx.public} | web | dir | /var/www/public |
 | nginx 로그 | ${dir.nginx.log} | web | dir | /usr/local/nginx/log |
 | nginx 설정 | ${file.nginx.conf} | web | file(ro) | /etc/nginx/nginx.conf |
