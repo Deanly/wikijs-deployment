@@ -32,3 +32,26 @@ $ docker-compose up -d
     * SSH Private Key Path: `/etc/wiki/github.pem`
 3. Parser(파서) > Kroki
     * Kroki Server: https://${your.domain.com}/kroki
+4. favicon
+    * https://realfavicongenerator.net 에서 favicon 생성
+    * `${dir.nginx.public}/favicon_package` 에 위치시키기
+
+### volumes
+| 용도 | Volume | hostname | 타입 | 바인딩 |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| nginx public | ${dir.nginx.public} | web | dir | /var/www/public |
+| nginx 로그 | ${dir.nginx.log} | web | dir | /usr/local/nginx/log |
+| nginx 설정 | ${file.nginx.conf} | web | file(ro) | /etc/nginx/nginx.conf |
+| nginx 인증서 | ${dir.certbot.main} | web | dir | /etc/nginx/ssl |
+| nginx certbot public | ${dir.certbot.public} | web | dir | /var/www/certbot | 
+| nginx crontab list | ${file.crontab.list} | web | file(ro) | /etc/cron.d/root:ro |
+| logrotate 설정 | ${file.logrotate.nginx} | web | file(ro | /etc/logrotate.d/nginx |
+| certbot 설정 | ${dir.certbot.main} | certbot | dir | /etc/letsencrypt |
+| certbot 로그 | ${dir.certbot.logs} | certbot | dir | /var/log/letsencrypt |
+| certbot 인증 public | ${dir.certbot.public} | cerbot | dir | /var/www/certbot |
+| db secert | ${file.db.secret} | db | file(ro) | /etc/wiki/.db-secret |
+| db data | ${dir.db.data} | db | dir | /var/lib/postgresql/data |
+| wiki db secret | ${file.db.secret} | wiki | file(ro) | /etc/wiki/.db-secret |
+| wiki github secret | ${file.storage.github.pem} | wiki | file(ro) | /etc/wiki/github.pem |
+| wiki db backup | ${dir.storage.backup} | wiki | dir | /etc/wiki/backup |
+| update companion | /var/run/docker.sock | wiki-update-companion | file(ro) | /var/run/docker.sock |
