@@ -84,6 +84,13 @@ services:
     networks:
       - wikinet
 
+  plantuml:
+    image: plantuml/plantuml-server:jetty
+    hostname: plantuml
+    restart: unless-stopped
+    networks:
+      - wikinet
+
   kroki:
     image: yuzutech/kroki
     hostname: kroki 
