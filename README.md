@@ -28,11 +28,13 @@ $ docker-compose up -d
 ### wiki setting
 1. Stroage(보관소) > Local File System
     * path: `/etc/wiki/backup`
-2. Storage(보관소) > Git
+1. Storage(보관소) > Git
     * SSH Private Key Path: `/etc/wiki/github.pem`
-3. Parser(파서) > Kroki
+1. Parser(파서) > Kroki
     * Kroki Server: https://${your.domain.com}/kroki
-4. favicon
+1. Parser(파서) > PlantUML
+    * PlantUML Server: https://${yser.domain.com}/plantuml
+1. favicon
     * https://realfavicongenerator.net 에서 favicon 생성
     * `${dir.nginx.public}/favicon_package` 에 위치시키기
 
