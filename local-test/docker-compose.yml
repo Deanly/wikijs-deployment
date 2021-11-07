@@ -67,6 +67,9 @@ services:
   plantuml:
     image: plantuml/plantuml-server:jetty
     hostname: plantuml
+    command: >
+      bash -c "mv /var/lib/jetty/webapps/ROOT.war /var/lib/jetty/webapps/plantuml.war &&
+               java -jar /usr/local/jetty/start.jar"
     restart: unless-stopped
     networks:
       - wikinet
