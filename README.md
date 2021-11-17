@@ -31,7 +31,7 @@ $ docker-compose up -d
 1. Storage(보관소) > Git
     * SSH Private Key Path: `/etc/wiki/github.pem`
 1. Parser(파서) > Kroki
-    * Kroki Server: https://${your.domain.com}/kroki
+    * Kroki Server: http://kroki:8000
 1. Parser(파서) > PlantUML
     * PlantUML Server: https://${yser.domain.com}/plantuml
 1. favicon
