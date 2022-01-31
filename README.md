@@ -1,5 +1,5 @@
 # Overview
-This is a wiki.2 deployment setup for use as a personal note.
+This is a [wiki](https://github.com/Requarks/wiki) deployment setup for use as a personal note.
 
 And this configuration solves the following issues.
 - Use the nginx server to limit external exposure of wiki application.
