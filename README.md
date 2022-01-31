@@ -35,7 +35,7 @@ $ docker-compose up -d
 ```
 
 ### volumes
-| 용도 | Volume | hostname | 타입 | 바인딩 |
+| Usage | Volume | Hostname | Type | Binding |
 |:---:|:---:|:---:|:---:|:---:|
 | nginx pub | ${dir.nginx.public} | web | dir | /var/www/public |
 | nginx log | ${dir.nginx.log} | web | dir | /usr/local/nginx/log |
@@ -99,7 +99,7 @@ docker run -it --rm --name certbot -v '${dir.certbot.main}:/etc/letsencrypt' -v 
 ```
 
 
-
-# Hello! 
-If it was helpful, Could you  
-<a href="https://www.buymeacoffee.com/deanly" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/lato-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+# Hello!
+**If the interest rate was useful**   
+**could you**  
+<a href="https://www.buymeacoffee.com/deanly" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/lato-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a> :question: :heart_eyes:  
