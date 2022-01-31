@@ -36,7 +36,7 @@ services:
       - wikinet
 
   wiki:
-    image: requarks/wiki:2
+    image: wiki2:test.2
     hostname: wiki
     environment:
       DB_TYPE: postgres
@@ -52,6 +52,9 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    command: >
+      bash -c "sed -i 's~https://plantuml.requarks.io~/plantuml~g' assets/js/editor-markdown.js && 
+               node server"
     networks:
       - wikinet
 

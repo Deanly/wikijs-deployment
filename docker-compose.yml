@@ -70,6 +70,9 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    command: >
+      bash -c "sed -i 's~plantuml.requarks.io~${your.domain.com}/plantuml~g' assets/js/editor-markdown.js && 
+               node server"
     networks:
       - wikinet
 
