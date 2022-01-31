@@ -1,11 +1,10 @@
 # Overview
 This is a wiki.2 deployment setup for use as a personal note.
 
-And this configuration solves the following problems.
-- Limit the external exposure of the application by configuring a proxy using the nginx server.
-- Force modification of client side access path of plantuml, which has not been implemented yet.
-- Force consolidation of the service path of the plantuml server.
-
+And this configuration solves the following issues.
+- Use the nginx server to limit external exposure of wiki application.
+- Complements not yet implemented [features](https://github.com/Requarks/wiki/blob/2.5.274/client/components/editor/editor-markdown.vue#L342), improves the security of plantuml preview features.
+- Integrate sub-service fragments.
 
 # Settings
 ## Local
