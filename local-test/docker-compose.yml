@@ -36,7 +36,7 @@ services:
       - wikinet
 
   wiki:
-    image: wiki2:test.2
+    image: requarks/wiki:2
     hostname: wiki
     environment:
       DB_TYPE: postgres
@@ -53,7 +53,8 @@ services:
       - db
     restart: unless-stopped
     command: >
-      bash -c "sed -i 's~https://plantuml.requarks.io~/plantuml~g' assets/js/editor-markdown.js && 
+      bash -c "sed -i \"s~https://plantuml.requarks.io~/plantuml~g\" assets/js/editor-markdown.js && 
+               sed -i \"s~app.use(bodyParser.json~app.use(bodyParser.json({ limit: '50mb' })) // app.use(bodyParser.json~g\" server/master.js &&
                node server"
     networks:
       - wikinet
