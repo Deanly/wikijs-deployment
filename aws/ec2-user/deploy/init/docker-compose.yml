@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:latest
+    hostname: web
+    environment:
+      TZ: "Asia/Seoul"
+    restart: always
+    volumes:
+      - /home/ec2-user/service/logs:/var/log/nginx
+      - /home/ec2-user/deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /home/ec2-user/service/certbot/conf:/etc/nginx/ssl
+      - /home/ec2-user/service/certbot/data:/var/www/certbot
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - wikinet
+
+  certbot:
+    image: certbot/certbot:latest
+    hostname: certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot --email your@email.com --agree-tos --no-eff-email -d your.domain.com
+    volumes:
+      - /home/ec2-user/service/certbot/conf:/etc/letsencrypt
+      - /home/ec2-user/service/certbot/logs:/var/log/letsencrypt
+      - /home/ec2-user/service/certbot/data:/var/www/certbot
+
+networks:
+  wikinet:
+    driver: bridge

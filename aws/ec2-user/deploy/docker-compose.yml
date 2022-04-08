@@ -1,0 +1,153 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:latest
+    hostname: web
+    environment:
+      TZ: "Asia/Seoul"
+    restart: always
+    volumes:
+      - /home/ec2-user/service/public:/var/www/public
+      - /home/ec2-user/service/logs:/var/log/nginx
+      - /home/ec2-user/deploy/logrotate-nginx.conf:/etc/logrotate.d/nginx:ro
+      - /home/ec2-user/deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /home/ec2-user/service/certbot/conf:/etc/nginx/ssl
+      - /home/ec2-user/service/certbot/data:/var/www/certbot
+      - /home/ec2-user/deploy/crontab.list:/etc/cron.d/root:ro
+    ports:
+      - 80:80
+      - 443:443
+    command: >
+      bash -c "apt-get update && 
+               apt-get install -y logrotate &&
+               cron &&
+               service cron status &&
+               nginx -g 'daemon off;'"
+    networks:
+      - wikinet
+
+  # certbot:
+  #   image: certbot/certbot:latest
+  #   hostname: certbot
+  #   command: certonly --webroot --webroot-path=/var/www/certbot --email your@email.com --agree-tos --no-eff-email -d your.domain.com
+  #   depends_on:
+  #     - web
+  #   volumes:
+  #     - /home/ec2-user/service/certbot/conf:/etc/letsencrypt
+  #     - /home/ec2-user/service/certbot/logs:/var/log/letsencrypt
+  #     - /home/ec2-user/service/certbot/data:/var/www/certbot
+
+  db:
+    image: postgres:11
+    hostname: db
+    environment:
+      POSTGRES_PASSWORD_FILE: /etc/wiki/.db-secret
+      POSTGRES_DB: wiki
+      POSTGRES_USER: wiki
+      TZ: "Asia/Seoul"
+    volumes:
+      - /home/ec2-user/service/keys/.db-secret:/etc/wiki/.db-secret:ro
+      - /home/ec2-user/service/pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - wikinet
+
+  wiki:
+    image: requarks/wiki:2
+    hostname: wiki
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_PASS_FILE: /etc/wiki/.db-secret
+      DB_USER: wiki
+      DB_NAME: wiki
+      UPGRADE_COMPANION: 1
+      TZ: "Asia/Seoul"
+    volumes:
+      - /home/ec2-user/service/keys/.db-secret:/etc/wiki/.db-secret:ro
+      - /home/ec2-user/service/keys/github.pem:/etc/wiki/github.pem:ro
+    depends_on:
+      - db
+      - web
+    restart: unless-stopped
+    command: >
+      bash -c "sed -i \"s~https://plantuml.requarks.io~/plantuml~g\" assets/js/editor-markdown.js && 
+               sed -i \"s~app.use(bodyParser.json~app.use(bodyParser.json({ limit: '50mb' })) // app.use(bodyParser.json~g\" server/master.js &&
+               node server"
+    networks:
+      - wikinet
+
+  # wiki-update-companion:
+  #   image: requarks/wiki-update-companion:latest
+  #   hostname: wiki-update-companion
+  #   environment:
+  #     TZ: "Asia/Seoul"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   restart: unless-stopped
+  #   networks:
+  #     - wikinet
+
+  plantuml:
+    image: plantuml/plantuml-server:jetty
+    hostname: plantuml
+    command: >
+      bash -c "mv /var/lib/jetty/webapps/ROOT.war /var/lib/jetty/webapps/plantuml.war || true &&
+               java -jar /usr/local/jetty/start.jar"
+    restart: unless-stopped
+    depends_on:
+      - wiki
+    networks:
+      - wikinet
+
+  kroki:
+    image: yuzutech/kroki
+    hostname: kroki 
+    environment:
+      - KROKI_BLOCKDIAG_HOST=blockdiag
+      - KROKI_MERMAID_HOST=mermaid
+      - KROKI_BPMN_HOST=bpmn
+      - KROKI_EXCALIDRAW_HOST=excalidraw
+    restart: unless-stopped
+    depends_on:
+      - wiki
+    networks:
+      - wikinet
+  blockdiag:
+    image: yuzutech/kroki-blockdiag
+    hostname: blockdiag 
+    restart: unless-stopped
+    depends_on:
+      - kroki
+    networks:
+      - wikinet
+  mermaid:
+    image: yuzutech/kroki-mermaid
+    hostname: mermaid 
+    restart: unless-stopped
+    depends_on:
+      - kroki
+    networks:
+      - wikinet
+  bpmn:
+    image: yuzutech/kroki-bpmn
+    hostname: bpmn 
+    restart: unless-stopped
+    depends_on:
+      - kroki
+    networks:
+      - wikinet
+  excalidraw:
+    image: yuzutech/kroki-excalidraw
+    hostname: excalidraw 
+    restart: unless-stopped
+    depends_on:
+      - kroki
+    networks:
+      - wikinet
+
+networks:
+  wikinet:
+    driver: bridge
