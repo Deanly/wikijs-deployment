@@ -7,7 +7,7 @@ When first deploying the server, it is used to set the certificate.
     - docker-compose.yml
     - nginx.conf
 
-1. 
+1. Deploy
     ```bash
     $ docker-compose up
     ...
@@ -33,4 +33,10 @@ When first deploying the server, it is used to set the certificate.
     Ctrl+C
 
     $ docker-compose down
+    ```
+
+1. Grant permission to file for logstate.
+    ```bash
+    $ sudo chown root:root /home/ec2-user/deploy/logrotate-nginx.conf
+    $ sudo chown root:root -R /home/ec2-user/service/logs
     ```
