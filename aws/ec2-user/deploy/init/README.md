@@ -4,10 +4,10 @@ When first deploying the server, it is used to set the certificate.
 ## start
 
 1. Modify all phrase that `${..}` in two files.  
-    - docker-compose.yml
-    - nginx.conf
-
-1. Deploy
+    - docker-compose.yml  
+    - nginx.conf  
+    
+1. Deploy for domain registration.
     ```bash
     $ docker-compose up
     ...
@@ -33,10 +33,4 @@ When first deploying the server, it is used to set the certificate.
     Ctrl+C
 
     $ docker-compose down
-    ```
-
-1. Grant permission to file for logstate.
-    ```bash
-    $ sudo chown root:root /home/ec2-user/deploy/logrotate-nginx.conf
-    $ sudo chown root:root -R /home/ec2-user/service/logs
     ```
