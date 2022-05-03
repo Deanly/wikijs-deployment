@@ -67,7 +67,7 @@ services:
       TZ: "Asia/Seoul"
     volumes:
       - /home/ec2-user/service/keys/.db-secret:/etc/wiki/.db-secret:ro
-      - /home/ec2-user/service/keys/github.pem:/etc/wiki/github.pem:ro
+      - /home/ec2-user/service/keys/my-github-key.pem:/etc/wiki/github.pem:ro
     depends_on:
       - db
       - web

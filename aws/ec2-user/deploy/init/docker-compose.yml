@@ -9,7 +9,7 @@ services:
     restart: always
     volumes:
       - /home/ec2-user/service/logs:/var/log/nginx
-      - /home/ec2-user/deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /home/ec2-user/deploy/init/nginx.conf:/etc/nginx/nginx.conf:ro
       - /home/ec2-user/service/certbot/conf:/etc/nginx/ssl
       - /home/ec2-user/service/certbot/data:/var/www/certbot
     ports:

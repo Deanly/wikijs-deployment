@@ -1,11 +1,11 @@
 
 ## List of keys
- - github-key.pem
+ - my-github-key.pem
  - .db-secret 
 
 ## Setting the secret key for ssh
 ```bash
-$ sudo chmod 0600 /home/ec2-user/service/keys/my-secret-key.pem
+$ sudo chmod 0600 /home/ec2-user/service/keys/my-github-key.pem
 ```
 
 ## Generate a secret key for db
