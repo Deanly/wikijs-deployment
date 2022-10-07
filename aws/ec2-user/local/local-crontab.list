@@ -1,0 +1,1 @@
+0 1 * * * /home/ec2-user/local/certbot-update-certificates.sh

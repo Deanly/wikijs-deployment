@@ -98,7 +98,3 @@ docker run -it --rm --name certbot -v '${dir.certbot.main}:/etc/letsencrypt' -v 
 ```
 
 
-# Hello!
-**If this document was useful,**   
-**could you**  
-<a href="https://www.buymeacoffee.com/deanly" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/lato-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important; margin: -20px 0 -22px 87px;" ></a> :question: :heart_eyes:  
