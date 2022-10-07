@@ -1,7 +1,7 @@
 ## certificates crontab update
 
 ### Check shell script
-1. Grant execute permission
+1. Grant execute permission.
     ```sh
     chmod +x ./certbot-update-certificates.sh
     ```
@@ -15,17 +15,18 @@
     ```
     0 1 * * * /home/ec2-user/local/certbot-update-certificates.sh
     ```
-1. Save and exit the editor
+1. Save and exit the editor.
     ```
     :wq
     ```
 
 ### Run crontab
-1. Restart the crontab
+1. Restart the crontab.  
+   After editing the crontab list, need to restart the cron service.
     ```sh
     sudo systemctl restart crond.service
     ```
-1. Check the crontab status
+1. Check the crontab status.
     ```sh
     sudo systemctl status crond.service
     ```
