@@ -148,6 +148,23 @@ services:
     networks:
       - wikinet
 
+  vscode:
+    image: gitpod/openvscode-server
+    hostname: vscode
+    restart: unless-stopped
+    volumes:
+      - /home/ec2-user/service/workspace:/home/workspace:cached
+    networks:
+      - wikinet
+  
+  vscode-gateway:
+    build:
+      context: ./vscode-gateway/
+    hostname: vscode-gateway
+    restart: unless-stopped
+    networks:
+      - wikinet
+
 networks:
   wikinet:
     driver: bridge
