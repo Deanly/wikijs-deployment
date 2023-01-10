@@ -15,10 +15,9 @@
             document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     let token = prompt('login');
-                    document.cookie = `jwt=${token}`;
+                        document.cookie = `jwt=${token}; expires=${(new Date(Date.now() + 31536000000)).toUTCString()}; path=/; Secure`;
                     window.location.assign('/');
-                }, 500);
+                }, 1700);
             });
         </script>
     </body>
-</html>
